@@ -11,6 +11,10 @@ output:
 require(tidyverse)
 require(tigerstats)
 require(MASS)
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
 veggy <- cabbages
 ```
 
@@ -29,11 +33,29 @@ $H_A$: There is a difference in the vitamin C content of cabbages based on culit
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
 
+Vitamin C is a numerical variable, cultivation method is a factor. 
+
+```{r}
+# Sample dataset
+data = veggy
+
+```
+
+
 # Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 ## Descriptive Results
+
+```{r}
+ggplot(data, aes(x = Cult, y = VitC)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of VitC by Cultivation", x = "Cult", y = "VitC")
+
+```
+
+
 
 ### Graphical Descriptive Results
 
@@ -42,6 +64,20 @@ $H_A$: There is a difference in the vitamin C content of cabbages based on culit
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+```{r}
+data %>%
+  group_by(Cult) %>%
+  summarize(
+    Mean = mean(VitC),
+    Median = median(VitC),
+    SD = sd(VitC),
+    Min = min(VitC),
+    Max = max(VitC)
+  )
+
+```
+
 
 ## Inferential Results
 
